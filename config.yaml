@@ -1,0 +1,21 @@
+dataset:
+  hf_name: "giswqs/EuroSAT_RGB"
+  train_split: "train"
+  test_split: "test"
+  image_col: "image"
+  label_col: "label"
+  id_col: "filename"
+
+pipeline:
+  batch_size: 500          
+  holdout_test_size: 500    
+  replay_buffer_size: 100   
+
+storage:
+  catalog_name: "workspace" 
+  schema_name: "default"
+  volume_name: "raw_data"
+
+models:
+  backbone: "mobilenet_v3_small"
+  embedding_dim: 576
