@@ -1,0 +1,1742 @@
+{
+  "datasets": [
+    {
+      "name": "4f888a8a",
+      "displayName": "bronze_batch_stats",
+      "config": {
+        "version": "1.1",
+        "source": "workspace.default.bronze_batch_stats",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "5fe29504",
+      "displayName": "gold_model_class_metrics",
+      "config": {
+        "version": "1.1",
+        "source": "workspace.default.gold_model_class_metrics",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "a2095e51",
+      "displayName": "gold_model_predictions",
+      "config": {
+        "version": "1.1",
+        "source": "workspace.default.gold_model_predictions",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "2f01b629",
+      "displayName": "pipeline_state",
+      "config": {
+        "version": "1.1",
+        "source": "workspace.default.pipeline_state",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "eceec769",
+      "displayName": "silver_current_batch",
+      "config": {
+        "version": "1.1",
+        "source": "workspace.default.silver_current_batch",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "4237be61",
+      "displayName": "silver_replay_buffer",
+      "config": {
+        "version": "1.1",
+        "source": "workspace.default.silver_replay_buffer",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "226571b3",
+      "displayName": "gold_model_runs",
+      "config": {
+        "version": "1.1",
+        "source": "workspace.default.gold_model_runs",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    },
+    {
+      "name": "6a1de0be",
+      "displayName": "silver_test_holdout",
+      "config": {
+        "version": "1.1",
+        "source": "workspace.default.silver_test_holdout",
+        "dimensions": [
+          {
+            "expr": "source.*"
+          }
+        ],
+        "measures": [
+          {
+            "name": "count",
+            "expr": "COUNT(*)",
+            "comment": "Represents the total number of rows in the dataset. Use this measure to count all",
+            "displayName": "Count"
+          }
+        ]
+      }
+    }
+  ],
+  "pages": [
+    {
+      "name": "dc2536f1",
+      "displayName": "Overview",
+      "layout": [
+        {
+          "widget": {
+            "name": "ef1f89e7",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 36px;line-height: 1.5;\">EuroSAT Incremental MLOps - Analiza Zdjęć Satelitarnych i Porównanie Modeli</span></span>"
+              ],
+              "verticalAlign": "VERTICAL_ALIGN_CENTER"
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "f4ba71ee",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "2f01b629",
+                  "fields": [
+                    {
+                      "name": "count(last_batch_id)",
+                      "expression": "COUNT(`last_batch_id`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size: 14px;\">Executed batches</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "count(last_batch_id)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            },
+            "filterSources": {
+              "mode": "EXCLUDE",
+              "global": {
+                "all": true
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "fa92717e",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4f888a8a",
+                  "fields": [
+                    {
+                      "name": "count(file_path)",
+                      "expression": "COUNT(`file_path`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size: 14px;\">Count of trainging pictures</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "count(file_path)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 3,
+            "y": 3,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "91857f46",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "226571b3",
+                  "fields": [
+                    {
+                      "name": "min(test_error_rate)",
+                      "expression": "MIN(`test_error_rate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 14px;\">Minimum error rate</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "min(test_error_rate)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 3,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "392288ab",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "226571b3",
+                  "fields": [
+                    {
+                      "name": "max(test_accuracy)",
+                      "expression": "MAX(`test_accuracy`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size:14px\">Maximum accuracy</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "counter",
+              "encodings": {
+                "value": {
+                  "fieldName": "max(test_accuracy)"
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 9,
+            "y": 3,
+            "width": 3,
+            "height": 2
+          }
+        },
+        {
+          "widget": {
+            "name": "8e297b06",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "226571b3",
+                  "fields": [
+                    {
+                      "name": "model_name",
+                      "expression": "`model_name`"
+                    },
+                    {
+                      "name": "batch_id",
+                      "expression": "`batch_id`"
+                    },
+                    {
+                      "name": "avg(test_error_rate)",
+                      "expression": "AVG(`test_error_rate`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size:14px\">Error rate for each models</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "batch_id",
+                  "displayName": "Batch number ",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(test_error_rate)",
+                  "displayName": "Avg error rate ",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "model_name",
+                  "legend": {
+                    "position": "top"
+                  },
+                  "displayName": "Model name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 5,
+            "width": 12,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "60c81f39",
+            "queries": [
+              {
+                "name": "combo_primary_1",
+                "query": {
+                  "datasetName": "226571b3",
+                  "fields": [
+                    {
+                      "name": "model_name",
+                      "expression": "`model_name`"
+                    },
+                    {
+                      "name": "avg(train_time_sec)",
+                      "expression": "AVG(`train_time_sec`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size:14px\">Average training time for each model</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "combo",
+              "encodings": {
+                "x": {
+                  "fieldName": "model_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "layers": [
+                    {
+                      "visual": "bar",
+                      "encodings": {
+                        "value": {
+                          "fields": [
+                            {
+                              "fieldName": "avg(train_time_sec)"
+                            }
+                          ]
+                        }
+                      },
+                      "queryName": "combo_primary_1"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 15,
+            "width": 12,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "35257879",
+            "queries": [
+              {
+                "name": "combo_primary_1",
+                "query": {
+                  "datasetName": "226571b3",
+                  "fields": [
+                    {
+                      "name": "model_name",
+                      "expression": "`model_name`"
+                    },
+                    {
+                      "name": "avg(avg_conf_when_correct)",
+                      "expression": "AVG(`avg_conf_when_correct`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "combo_primary_2",
+                "query": {
+                  "datasetName": "226571b3",
+                  "fields": [
+                    {
+                      "name": "model_name",
+                      "expression": "`model_name`"
+                    },
+                    {
+                      "name": "avg(avg_conf_when_wrong)",
+                      "expression": "AVG(`avg_conf_when_wrong`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "showDescription": false,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size:14px\">Average confidence when wrong and correct for each model</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "combo",
+              "encodings": {
+                "x": {
+                  "fieldName": "model_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "layers": [
+                    {
+                      "visual": "bar",
+                      "encodings": {
+                        "value": {
+                          "fields": [
+                            {
+                              "fieldName": "avg(avg_conf_when_correct)",
+                              "displayName": "Average confidence when correct"
+                            }
+                          ]
+                        },
+                        "color": {
+                          "legend": {
+                            "position": "top"
+                          }
+                        },
+                        "label": {
+                          "show": true
+                        }
+                      },
+                      "queryName": "combo_primary_1"
+                    },
+                    {
+                      "visual": "bar",
+                      "encodings": {
+                        "value": {
+                          "fields": [
+                            {
+                              "fieldName": "avg(avg_conf_when_wrong)",
+                              "displayName": "Average confidence when wrong"
+                            }
+                          ]
+                        },
+                        "color": {
+                          "legend": {
+                            "position": "top"
+                          }
+                        },
+                        "label": {
+                          "show": true
+                        }
+                      },
+                      "queryName": "combo_primary_2"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 20,
+            "width": 12,
+            "height": 5
+          }
+        },
+        {
+          "widget": {
+            "name": "3f436077",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "226571b3",
+                  "fields": [
+                    {
+                      "name": "model_name",
+                      "expression": "`model_name`"
+                    },
+                    {
+                      "name": "batch_id",
+                      "expression": "`batch_id`"
+                    },
+                    {
+                      "name": "avg(test_log_loss)",
+                      "expression": "AVG(`test_log_loss`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size:14px\">Testlog loss for each model</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "line",
+              "encodings": {
+                "x": {
+                  "fieldName": "batch_id",
+                  "displayName": "Batch number ",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(test_log_loss)",
+                  "displayName": "Avg error rate ",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "model_name",
+                  "legend": {
+                    "position": "top"
+                  },
+                  "displayName": "Model name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": false
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 10,
+            "width": 12,
+            "height": 5
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "eccce4a6",
+      "displayName": "Global Filters",
+      "pageType": "PAGE_TYPE_GLOBAL_FILTERS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "80025a67",
+      "displayName": "Classes",
+      "layout": [
+        {
+          "widget": {
+            "name": "cd56077d",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block\"><span style=\"font-size:36px;line-height:1.5\">Per-Class Classification Performance & Error Analysis</span></span>\n",
+                "\n",
+                "<span style=\"text-align:center;display:block\"><span style=\"font-size:24px\">Detailed breakdown of F1-Score, Precision, Recall, and Confusion Matrix across 10 land-cover classes</span></span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "8bd787c6",
+            "queries": [
+              {
+                "name": "combo_primary_1",
+                "query": {
+                  "datasetName": "5fe29504",
+                  "fields": [
+                    {
+                      "name": "class_name",
+                      "expression": "`class_name`"
+                    },
+                    {
+                      "name": "avg(class_accuracy)",
+                      "expression": "AVG(`class_accuracy`)"
+                    },
+                    {
+                      "name": "model_name",
+                      "expression": "`model_name`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size: 24px;\">Average accuracy for each class</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "combo",
+              "encodings": {
+                "x": {
+                  "fieldName": "class_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "layers": [
+                    {
+                      "visual": "bar",
+                      "encodings": {
+                        "value": {
+                          "fieldName": "avg(class_accuracy)",
+                          "displayName": "Average classs accuracy"
+                        },
+                        "color": {
+                          "fieldName": "model_name",
+                          "legend": {
+                            "position": "top",
+                            "title": "Model name"
+                          },
+                          "displayName": "model name",
+                          "scale": {
+                            "type": "categorical"
+                          }
+                        },
+                        "label": {
+                          "show": true
+                        }
+                      },
+                      "queryName": "combo_primary_1"
+                    }
+                  ]
+                }
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 12,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "c5a8709f",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "a2095e51",
+                  "fields": [
+                    {
+                      "name": "count(test_idx)",
+                      "expression": "COUNT(`test_idx`)"
+                    },
+                    {
+                      "name": "true_class_name",
+                      "expression": "`true_class_name`"
+                    },
+                    {
+                      "name": "pred_class_name",
+                      "expression": "`pred_class_name`"
+                    },
+                    {
+                      "name": "model_name",
+                      "expression": "`model_name`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "facet": {
+                "type": "wrap",
+                "fieldName": "model_name",
+                "layout": {
+                  "row": {
+                    "type": "count",
+                    "value": 3
+                  },
+                  "column": {
+                    "type": "count",
+                    "value": 1
+                  }
+                },
+                "scale": {
+                  "type": "categorical"
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size: 24px;\">Confiusion matrix for each model</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "heatmap",
+              "encodings": {
+                "x": {
+                  "fieldName": "true_class_name",
+                  "displayName": "True class ",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "pred_class_name",
+                  "displayName": "Predicted class",
+                  "scale": {
+                    "type": "categorical",
+                    "sort": {
+                      "by": "natural-order-reversed"
+                    }
+                  }
+                },
+                "color": {
+                  "fieldName": "count(test_idx)",
+                  "displayName": "Count of photos",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 11,
+            "width": 12,
+            "height": 37
+          }
+        },
+        {
+          "widget": {
+            "name": "f8f431ae",
+            "queries": [
+              {
+                "name": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d6382a0b112c989bbecaa662f8e7_batch_id",
+                "query": {
+                  "datasetName": "4f888a8a",
+                  "fields": [
+                    {
+                      "name": "batch_id",
+                      "expression": "`batch_id`"
+                    },
+                    {
+                      "name": "batch_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d639c907183a999d0203641d20ce_batch_id",
+                "query": {
+                  "datasetName": "a2095e51",
+                  "fields": [
+                    {
+                      "name": "batch_id",
+                      "expression": "`batch_id`"
+                    },
+                    {
+                      "name": "batch_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d639cf791d1098d7f46c89e12f69_batch_id",
+                "query": {
+                  "datasetName": "eceec769",
+                  "fields": [
+                    {
+                      "name": "batch_id",
+                      "expression": "`batch_id`"
+                    },
+                    {
+                      "name": "batch_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d63b122b1738983110d8043218b7_batch_id",
+                "query": {
+                  "datasetName": "226571b3",
+                  "fields": [
+                    {
+                      "name": "batch_id",
+                      "expression": "`batch_id`"
+                    },
+                    {
+                      "name": "batch_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d639d023135681009d08caeba0e6_batch_id",
+                "query": {
+                  "datasetName": "4237be61",
+                  "fields": [
+                    {
+                      "name": "batch_id",
+                      "expression": "`batch_id`"
+                    },
+                    {
+                      "name": "batch_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d6385d7212a9b1e7ea928fae42ce_batch_id",
+                "query": {
+                  "datasetName": "5fe29504",
+                  "fields": [
+                    {
+                      "name": "batch_id",
+                      "expression": "`batch_id`"
+                    },
+                    {
+                      "name": "batch_id_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "selection": {
+                "defaultSelection": {
+                  "values": {
+                    "dataType": "INTEGER",
+                    "values": [
+                      {
+                        "value": "1"
+                      }
+                    ]
+                  }
+                }
+              },
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Batch number",
+                  "fields": []
+                }
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "batch_id",
+                    "queryName": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d6382a0b112c989bbecaa662f8e7_batch_id"
+                  },
+                  {
+                    "fieldName": "batch_id",
+                    "queryName": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d639c907183a999d0203641d20ce_batch_id"
+                  },
+                  {
+                    "fieldName": "batch_id",
+                    "queryName": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d639cf791d1098d7f46c89e12f69_batch_id"
+                  },
+                  {
+                    "fieldName": "batch_id",
+                    "queryName": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d63b122b1738983110d8043218b7_batch_id"
+                  },
+                  {
+                    "fieldName": "batch_id",
+                    "queryName": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d639d023135681009d08caeba0e6_batch_id"
+                  },
+                  {
+                    "fieldName": "batch_id",
+                    "queryName": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d6385d7212a9b1e7ea928fae42ce_batch_id"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 4,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "4b60647d",
+            "queries": [
+              {
+                "name": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d6385d7212a9b1e7ea928fae42ce_model_name",
+                "query": {
+                  "datasetName": "5fe29504",
+                  "fields": [
+                    {
+                      "name": "model_name",
+                      "expression": "`model_name`"
+                    },
+                    {
+                      "name": "model_name_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d63b122b1738983110d8043218b7_model_name",
+                "query": {
+                  "datasetName": "226571b3",
+                  "fields": [
+                    {
+                      "name": "model_name",
+                      "expression": "`model_name`"
+                    },
+                    {
+                      "name": "model_name_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Model name",
+                  "fields": []
+                }
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "model_name",
+                    "queryName": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d6385d7212a9b1e7ea928fae42ce_model_name"
+                  },
+                  {
+                    "fieldName": "model_name",
+                    "queryName": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d63b122b1738983110d8043218b7_model_name"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 4,
+            "y": 3,
+            "width": 4,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "ce018b28",
+            "queries": [
+              {
+                "name": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d6382a0b112c989bbecaa662f8e7_class_name",
+                "query": {
+                  "datasetName": "4f888a8a",
+                  "fields": [
+                    {
+                      "name": "class_name",
+                      "expression": "`class_name`"
+                    },
+                    {
+                      "name": "class_name_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d6385d7212a9b1e7ea928fae42ce_class_name",
+                "query": {
+                  "datasetName": "5fe29504",
+                  "fields": [
+                    {
+                      "name": "class_name",
+                      "expression": "`class_name`"
+                    },
+                    {
+                      "name": "class_name_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d639cf791d1098d7f46c89e12f69_class_name",
+                "query": {
+                  "datasetName": "eceec769",
+                  "fields": [
+                    {
+                      "name": "class_name",
+                      "expression": "`class_name`"
+                    },
+                    {
+                      "name": "class_name_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              },
+              {
+                "name": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d6e5d49f10ffadeb5f93fa44d5d5_class_name",
+                "query": {
+                  "datasetName": "6a1de0be",
+                  "fields": [
+                    {
+                      "name": "class_name",
+                      "expression": "`class_name`"
+                    },
+                    {
+                      "name": "class_name_associativity",
+                      "expression": "COUNT_IF(`associative_filter_predicate_group`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Class name",
+                  "fields": []
+                }
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": [
+                  {
+                    "fieldName": "class_name",
+                    "queryName": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d6382a0b112c989bbecaa662f8e7_class_name"
+                  },
+                  {
+                    "fieldName": "class_name",
+                    "queryName": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d6385d7212a9b1e7ea928fae42ce_class_name"
+                  },
+                  {
+                    "fieldName": "class_name",
+                    "queryName": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d639cf791d1098d7f46c89e12f69_class_name"
+                  },
+                  {
+                    "fieldName": "class_name",
+                    "queryName": "dashboards/01f1d636d27a18448c20ca597bac9732/datasets/01f1d6e5d49f10ffadeb5f93fa44d5d5_class_name"
+                  }
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 8,
+            "y": 3,
+            "width": 4,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "f1-score",
+            "queries": [
+              {
+                "name": "combo_primary_1",
+                "query": {
+                  "datasetName": "226571b3",
+                  "fields": [
+                    {
+                      "name": "batch_id",
+                      "expression": "`batch_id`"
+                    },
+                    {
+                      "name": "avg(test_f1_macro)",
+                      "expression": "AVG(`test_f1_macro`)"
+                    },
+                    {
+                      "name": "model_name",
+                      "expression": "`model_name`"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 24px;\">Average F1 score for each model</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 2,
+              "widgetType": "combo",
+              "encodings": {
+                "x": {
+                  "fieldName": "batch_id",
+                  "displayName": "Batch number ",
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "layers": [
+                    {
+                      "visual": "line",
+                      "encodings": {
+                        "value": {
+                          "fieldName": "avg(test_f1_macro)",
+                          "displayName": "Average f1"
+                        },
+                        "color": {
+                          "fieldName": "model_name",
+                          "scale": {
+                            "type": "categorical"
+                          }
+                        },
+                        "label": {
+                          "show": false
+                        }
+                      },
+                      "queryName": "combo_primary_1"
+                    }
+                  ]
+                }
+              }
+            },
+            "filterSources": {
+              "mode": "EXCLUDE",
+              "global": {
+                "all": true
+              },
+              "page": {
+                "names": [
+                  "f8f431ae"
+                ]
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 48,
+            "width": 12,
+            "height": 9
+          }
+        },
+        {
+          "widget": {
+            "name": "results-classification-each-class",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "5fe29504",
+                  "fields": [
+                    {
+                      "name": "class_name",
+                      "expression": "`class_name`"
+                    },
+                    {
+                      "name": "avg(class_accuracy)",
+                      "expression": "AVG(`class_accuracy`)"
+                    },
+                    {
+                      "name": "avg(class_f1)",
+                      "expression": "AVG(`class_f1`)"
+                    },
+                    {
+                      "name": "avg(class_precision)",
+                      "expression": "AVG(`class_precision`)"
+                    },
+                    {
+                      "name": "avg(class_recall)",
+                      "expression": "AVG(`class_recall`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 24px;\">Results of classification for each class</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "class_name",
+                  "displayName": "Class name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "avg(class_accuracy)",
+                      "displayName": "Average class accuracy "
+                    },
+                    {
+                      "fieldName": "avg(class_f1)",
+                      "displayName": "Average class F1"
+                    },
+                    {
+                      "fieldName": "avg(class_precision)",
+                      "displayName": "Average class precision"
+                    },
+                    {
+                      "fieldName": "avg(class_recall)",
+                      "displayName": "Average class recall"
+                    }
+                  ]
+                },
+                "color": {
+                  "legend": {
+                    "position": "top"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 57,
+            "width": 12,
+            "height": 7
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    },
+    {
+      "name": "78467cb6",
+      "displayName": "Photos",
+      "layout": [
+        {
+          "widget": {
+            "name": "for-each-batch",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4f888a8a",
+                  "fields": [
+                    {
+                      "name": "class_name",
+                      "expression": "`class_name`"
+                    },
+                    {
+                      "name": "avg(mean_b)",
+                      "expression": "AVG(`mean_b`)"
+                    },
+                    {
+                      "name": "avg(mean_g)",
+                      "expression": "AVG(`mean_g`)"
+                    },
+                    {
+                      "name": "avg(mean_r)",
+                      "expression": "AVG(`mean_r`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block\"><span style=\"font-size: 24px;\">RGB color breakdown in each class</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 1
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 3
+                  },
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "class_name",
+                  "displayName": "Class name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "scale": {
+                    "type": "quantitative"
+                  },
+                  "fields": [
+                    {
+                      "fieldName": "avg(mean_b)",
+                      "displayName": "Average blue"
+                    },
+                    {
+                      "fieldName": "avg(mean_g)",
+                      "displayName": "Average green"
+                    },
+                    {
+                      "fieldName": "avg(mean_r)",
+                      "displayName": "Average red"
+                    }
+                  ]
+                },
+                "color": {
+                  "legend": {
+                    "position": "top",
+                    "hide": false
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 4,
+            "width": 12,
+            "height": 7
+          }
+        },
+        {
+          "widget": {
+            "name": "03b9b838",
+            "multilineTextboxSpec": {
+              "lines": [
+                "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 36px;line-height: 1.5;\">Bronze Layer: Satellite Image Statistics & RGB Profiles</span></span>\n",
+                "\n",
+                "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 24px;\">Physical characteristics of ingested Sentinel-2 imagery: RGB channel distribution, brightness levels, and class balance per batch.</span></span>"
+              ]
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 0,
+            "width": 12,
+            "height": 3
+          }
+        },
+        {
+          "widget": {
+            "name": "batch-number",
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Batch number",
+                  "fields": []
+                }
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": []
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 3,
+            "width": 6,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "class",
+            "spec": {
+              "version": 2,
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "Class",
+                  "fields": []
+                }
+              },
+              "widgetType": "filter-single-select",
+              "encodings": {
+                "fields": []
+              }
+            }
+          },
+          "position": {
+            "x": 6,
+            "y": 3,
+            "width": 6,
+            "height": 1
+          }
+        },
+        {
+          "widget": {
+            "name": "average-brightness-each-class",
+            "queries": [
+              {
+                "name": "main_query",
+                "query": {
+                  "datasetName": "4f888a8a",
+                  "fields": [
+                    {
+                      "name": "class_name",
+                      "expression": "`class_name`"
+                    },
+                    {
+                      "name": "avg(brightness)",
+                      "expression": "AVG(`brightness`)"
+                    }
+                  ],
+                  "disaggregated": false
+                }
+              }
+            ],
+            "spec": {
+              "frame": {
+                "showTitle": true,
+                "title": {
+                  "value": "<span style=\"text-align:center;display:block;\"><span style=\"font-size: 24px;\">Average brightness for each class</span></span>",
+                  "fields": []
+                }
+              },
+              "version": 3,
+              "mark": {
+                "colors": [
+                  {
+                    "themeColorType": "visualizationColors",
+                    "position": 4
+                  }
+                ]
+              },
+              "widgetType": "bar",
+              "encodings": {
+                "x": {
+                  "fieldName": "class_name",
+                  "displayName": "Class name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "y": {
+                  "fieldName": "avg(brightness)",
+                  "axis": {
+                    "hideLabels": false,
+                    "hideTitle": false
+                  },
+                  "scale": {
+                    "type": "quantitative"
+                  }
+                },
+                "color": {
+                  "fieldName": "class_name",
+                  "scale": {
+                    "type": "categorical"
+                  }
+                },
+                "label": {
+                  "show": true
+                }
+              },
+              "data": {
+                "queryName": "main_query"
+              }
+            }
+          },
+          "position": {
+            "x": 0,
+            "y": 11,
+            "width": 12,
+            "height": 6
+          }
+        }
+      ],
+      "pageType": "PAGE_TYPE_CANVAS",
+      "layoutVersion": "GRID_V1"
+    }
+  ],
+  "uiSettings": {
+    "theme": {
+      "widgetHeaderAlignment": "ALIGNMENT_UNSPECIFIED"
+    },
+    "applyModeEnabled": false
+  }
+}
