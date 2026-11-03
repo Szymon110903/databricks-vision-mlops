@@ -67,6 +67,12 @@ Cztery notebooki operacyjne (`01` → `02` → `03` → `04`) działają jako za
 | **`PyTorch_Deep_MLP`** | `PyTorch` | `Linear(576, 256)` → `BatchNorm1d(256)` → `ReLU` → `Dropout(0.3)` → `Linear(256, 10)` | `AdamW` (`weight_decay=1e-4`), `CrossEntropyLoss`, `batch_size=64` | `15` | Paczka `#1`: `0.0015`<br/>Paczka `>= #2`: `0.00075` (`0.5 * base_lr`) | Zapis/odczyt wag `state_dict` (`.pt`) + Replay Buffer |
 | **`Sklearn_SGD_LogReg`** | `Scikit-Learn` | `SGDClassifier(loss="log_loss", random_state=42)` | Stochastyczny spadek gradientowy (`learning_rate="adaptive"`) | `5` | `eta0 = 0.01` (adaptacyjny) | Wywołania `partial_fit()` + serializacja `joblib` (`.pkl`) + Replay Buffer |
 
+### Dlaczego dobrano takie parametry modeli? (Różnice w liczbie epok i `learning_rate`)
+- **`PyTorch_Linear_Head` (`12` epok, `base_lr = 0.002`):** Prosty model jednowarstwowy (`~5,8 tys.` parametrów) bez `Dropoutu` – jego funkcja straty jest wypukła, dzięki czemu szybko zbiega przy nieco wyższym kroku uczenia (`0.002`) i umiarkowanej liczbie `12` epok.
+- **`PyTorch_Deep_MLP` (`15` epok, `base_lr = 0.0015`, `Dropout = 0.3`):** Posiada ponad 25× więcej parametrów (`~150 tys.`) oraz warstwę `Dropout(0.3)`, która losowo wyłącza 30% neuronów podczas nauki, chroniąc model przed przeuczeniem do małej paczki 500 zdjęć. Przez obecność `Dropoutu` sieć potrzebuje więcej epok (`15`), aby się w pełni nauczyć, oraz mniejszego kroku (`0.0015`), by uniknąć gwałtownych skoków wag w głębszej architekturze.
+- **`Sklearn_SGD_LogReg` (`5` epok, `eta0 = 0.01`, `adaptive`):** Klasyczny `SGD` (bez adaptacyjnych momentów jak w `AdamW`) aktualizuje wagi po każdej pojedynczej próbce w `partial_fit()`. Wymaga wyższego kroku startowego (`0.01`, automatycznie wygaszanego w trybie `adaptive`), ale już `5` przejść po paczce wystarcza do zbieżności bez ryzyka nadpisania wiedzy z poprzednich paczek.
+- **Obniżenie `learning_rate` o 50% (`0.5 * base_lr`) od paczki `#2`:** W paczce `#1` modele startują z losowych wag i potrzebują większego kroku, natomiast w kolejnych paczkach mniejszy krok działa jak stabilny *fine-tuning*, chroniąc wcześniej wyuczone cechy przed zapomnieniem.
+
 > Szczegóły: [docs/03_models_and_incremental_learning.md](docs/03_models_and_incremental_learning.md)
 
 ---

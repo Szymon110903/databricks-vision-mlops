@@ -46,7 +46,34 @@ W notebooku [`03_train_and_compare_mlflow.ipynb`](../notebooks/03_train_and_comp
 
 ---
 
-## 4. Mechanizm douczania przyrostowego (Incremental Checkpoint Loading)
+## 4. Uzasadnienie doboru hiperparametrów dla poszczególnych modeli
+
+Różnice w liczbie epok (`12` vs `15` vs `5`) oraz współczynnikach uczenia (`0.002` vs `0.0015` vs `0.01`) wynikają bezpośrednio z odmiennej złożoności architektur oraz sposobu optymalizacji w każdym z trzech modeli:
+
+1. **`PyTorch_Linear_Head` (`epochs = 12`, `base_lr = 0.002`):**
+   - Posiada wyłącznie jedną warstwę liniową (`576 × 10 + 10 = 5 770` parametrów) bez nieliniowości i bez `Dropoutu`.
+   - Ze względu na wypukłą powierzchnię funkcji straty (identyczną z wieloklasową regresją logistyczną) model zbiega szybciej i bezpiecznie toleruje nieco wyższy krok uczenia (`base_lr = 0.002` z optymalizatorem `AdamW`) oraz umiarkowaną liczbę **12 epok** na paczkę, bez ryzyka niestabilności gradientów.
+
+2. **`PyTorch_Deep_MLP` (`epochs = 15`, `base_lr = 0.0015`, `Dropout = 0.3`, `BatchNorm1d`):**
+   - Zawiera dodatkową warstwę ukrytą o wymiarze `256` (`576 × 256 + 256 × 10 ≈ 150 tys.` parametrów – ponad **25× więcej wag** niż `LinearHead`).
+   - Obecność losowego wygaszania neuronów **`Dropout(0.3)`** (30% neuronów wyłączanych w każdym kroku treningowym) celowo utrudnia dopasowanie do pojedynczej paczki, aby zapobiec przeuczeniu (*overfitting*) na małej próbce 500–600 zdjęć. Z tego powodu sieć potrzebuje **większej liczby epok (`15`)**, aby w pełni wyuczyć reprezentacje w warstwie ukrytej.
+   - Zastosowano nieco **niższy współczynnik uczenia (`base_lr = 0.0015`)**, ponieważ w głębszej architekturze z nieliniowością `ReLU` i normalizacją `BatchNorm1d` zbyt duży krok początkowy powodowałby gwałtowne oscylacje wag i niszczenie cech wyuczonych w poprzednich paczkach.
+
+3. **`Sklearn_SGD_LogReg` (`epochs = 5`, `base_lr / eta0 = 0.01`, `learning_rate = "adaptive"`):**
+   - W klasycznym `SGDClassifier` (bez momentów pędu drugiego rzędu, jakie ma `AdamW`) aktualizacja wag odbywa się czystym stochastycznym spadkiem gradientowym po każdej pojedynczej próbce wewnątrz `partial_fit`.
+   - Z tego względu punkt startowy kroku uczenia dla zwykłego SGD musi być wyższy (`eta0 = 0.01`) niż dla `AdamW` (`0.0015–0.002`), a tryb `learning_rate="adaptive"` automatycznie zmniejsza krok, gdy błąd przestaje maleć.
+   - Ponieważ `partial_fit` wykonuje aktualizację wag po każdym pojedynczym wektorze w paczce (500–600 aktualizacji na jedno wywołanie), już **5 przejść (`epochs = 5`)** wystarcza do zbieżności na bieżącej paczce, a większa liczba epok prowadziłaby do nadmiernego dopasowania do ostatniej paczki kosztem wcześniejszych.
+
+4. **Redukcja `learning_rate` o połowę (`0.5 * base_lr`) od paczki `#2` wzwyż (modele PyTorch):**
+   - W pierwszej paczce (`#1`) wagi sieci są losowe, więc potrzebny jest pełny krok `base_lr`, aby szybko znaleźć właściwy obszar przestrzeni wag.
+   - W kolejnych paczkach (`>= #2`) model posiada już ukształtowaną wiedzę z poprzednich tysięcy zdjęć. Zmniejszenie kroku uczenia o 50% (`0.001` dla `LinearHead` i `0.00075` dla `DeepMLP`) działa jak **łagodny fine-tuning** – pozwala przyswoić nowe wzorce z bieżącej paczki bez agresywnego wymazywania dotychczas wyuczonych granic decyzyjnych.
+
+5. **Regularyzacja `weight_decay = 1e-4` w `AdamW`:**
+   - Ogranicza nadmierny wzrost wartości wag przy wielokrotnym douczaniu na kolejnych 20+ paczkach, co przekłada się na lepszą kalibrację prawdopodobieństw (niższy `test_log_loss` widoczny na wykresach).
+
+---
+
+## 5. Mechanizm douczania przyrostowego (Incremental Checkpoint Loading)
 
 - **Dla modeli PyTorch (`LinearHead` oraz `DeepMLPHead`):**
   - Przy paczce `#1` wagi są inicjalizowane losowo, a trening przebiega z bazowym współczynnikiem uczenia `base_lr`.
